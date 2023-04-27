@@ -13,17 +13,6 @@ export default function AppFunctional(props) {
   const [adim, setAdim] = useState(0);
   const [input, setInput] = useState("");
 
-  function getXY() {
-    // Koordinatları izlemek için bir state e sahip olmak gerekli değildir.
-    // Bunları hesaplayabilmek için "B" nin hangi indexte olduğunu bilmek yeterlidir.
-  }
-
-  function getXYMesaj() {
-    // Kullanıcı için "Koordinatlar (2, 2)" mesajını izlemek için bir state'in olması gerekli değildir.
-    // Koordinatları almak için yukarıdaki "getXY" helperını ve ardından "getXYMesaj"ı kullanabilirsiniz.
-    // tamamen oluşturulmuş stringi döndürür.
-  }
-
   function reset() {
     // Tüm stateleri başlangıç ​​değerlerine sıfırlamak için bu helperı kullanın.
     setKonum([2, 2]);
@@ -32,11 +21,6 @@ export default function AppFunctional(props) {
     //console.log(konum);
   }
 
-  function sonrakiIndex(yon) {
-    // Bu helper bir yön ("sol", "yukarı", vb.) alır ve "B" nin bir sonraki indeksinin ne olduğunu hesaplar.
-    // Gridin kenarına ulaşıldığında başka gidecek yer olmadığı için,
-    // şu anki indeksi değiştirmemeli.
-  }
   function yukari() {
     if (konum[1] > 1) {
       setKonum([konum[0], konum[1] - 1]);
@@ -75,10 +59,6 @@ export default function AppFunctional(props) {
     }
     console.log(konum);
   }
-  function ilerle(evt) {
-    // Bu event handler, "B" için yeni bir dizin elde etmek üzere yukarıdaki yardımcıyı kullanabilir,
-    // ve buna göre state i değiştirir.
-  }
 
   function onChange(evt) {
     // inputun değerini güncellemek için bunu kullanabilirsiniz
@@ -96,13 +76,14 @@ export default function AppFunctional(props) {
         email: input,
       })
       .then(function (response) {
-        console.log(response.data);
+        setMessage(response.data.message);
+        //console.log(response.data.message);
       })
       .catch(function (error) {
-        console.log(error);
+        setMessage(error.response.data.message);
       });
   }
-
+  const index = (konum[1] - 1) * 3 + konum[0] - 1;
   return (
     <div id="wrapper" className={props.className}>
       <div className="info">
@@ -111,8 +92,8 @@ export default function AppFunctional(props) {
       </div>
       <div id="grid">
         {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((idx) => (
-          <div key={idx} className={`square${idx === 4 ? " active" : ""}`}>
-            {idx === 4 ? "B" : null}
+          <div key={idx} className={`square${idx === index ? " active" : ""}`}>
+            {idx === index ? "B" : null}
           </div>
         ))}
       </div>
