@@ -125,6 +125,7 @@ export default function AppFunctional(props) {
           onChange={onChange}
           id="email"
           type="email"
+          value={input}
           placeholder="email girin"
         ></input>
         <input onClick={onSubmit} id="submit" type="submit"></input>
