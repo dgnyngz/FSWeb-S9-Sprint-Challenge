@@ -18,6 +18,7 @@ export default function AppFunctional(props) {
     setKonum([2, 2]);
     setMessage("");
     setAdim(0);
+    setInput("");
     //console.log(konum);
   }
 
@@ -26,7 +27,7 @@ export default function AppFunctional(props) {
       setKonum([konum[0], konum[1] - 1]);
       setAdim(adim + 1);
     } else {
-      setMessage("You can't go up");
+      setMessage("Yukarıya gidemezsiniz");
     }
     //console.log(konum);
     //console.log(adim);
@@ -36,7 +37,7 @@ export default function AppFunctional(props) {
       setKonum([konum[0], konum[1] + 1]);
       setAdim(adim + 1);
     } else {
-      setMessage("You can't go down");
+      setMessage("Aşağıya gidemezsiniz");
     }
     //console.log(konum);
     //console.log(adim);
@@ -46,7 +47,7 @@ export default function AppFunctional(props) {
       setKonum([konum[0] + 1, konum[1]]);
       setAdim(adim + 1);
     } else {
-      setMessage("You can't go right");
+      setMessage("Sağa gidemezsiniz");
     }
     console.log(konum);
   }
@@ -55,7 +56,7 @@ export default function AppFunctional(props) {
       setKonum([konum[0] - 1, konum[1]]);
       setAdim(adim + 1);
     } else {
-      setMessage("You can't go left");
+      setMessage("Sola gidemezsiniz");
     }
     console.log(konum);
   }
@@ -67,6 +68,7 @@ export default function AppFunctional(props) {
 
   function onSubmit(evt) {
     evt.preventDefault();
+
     // payloadu POST etmek için bir submit handlera da ihtiyacınız var.
     axios
       .post("http://localhost:9000/api/result", {
@@ -77,6 +79,7 @@ export default function AppFunctional(props) {
       })
       .then(function (response) {
         setMessage(response.data.message);
+        setInput("");
         //console.log(response.data.message);
       })
       .catch(function (error) {
